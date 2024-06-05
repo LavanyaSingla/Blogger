@@ -51,14 +51,25 @@ const Typo = styled(Typography)
 color:#878787;
 `
 
+const signUpInitialValues ={
+    name:'',
+    username:'',
+    password:''
+}
+
 const Login =()=>{
     const imageUrl ='https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
 
     const [account, toggleAccount] = useState('login');
+    const [signupValues,setSignupValues] = useState(signUpInitialValues);
 
     const toggleSignup =()=>{
         account==='login' ? toggleAccount('signup') :toggleAccount('login');
     }
+    const onInputChange =(e) =>{
+        setSignupValues({...signupValues, [e.target.name]:e.target.value});
+    }
+
     return(
     <Component>
         <Box>
@@ -73,9 +84,9 @@ const Login =()=>{
             </Wrapper>
              :
              <Wrapper>
-                 <TextField variant='standard' label="Enter Name"/>
-                <TextField variant='standard' label="Enter username"/>
-                <TextField variant='standard' label="Enter password"/>
+                 <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='name' label="Enter Name"/>
+                <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='username' label="Enter username"/>
+                <TextField variant='standard' onChange={(e)=>onInputChange(e)} name='password' label="Enter password"/>
                 <SignupButton >Signup</SignupButton>
                 <Typo style={{textAlign:"center"}}>OR</Typo>
                 <LoginButton variant='contained' onClick={()=>{toggleSignup()}}>Already have an account</LoginButton>
